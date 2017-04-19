@@ -1,0 +1,66 @@
+package com.algaworks.brewer.config;
+
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+
+import com.algaworks.brewer.model.Cerveja;
+import com.algaworks.brewer.repository.Cervejas;
+
+@Configuration
+@EnableJpaRepositories(basePackageClasses = Cervejas.class)
+public class JPAConfig {
+
+	/**
+	 * Identifca o data-source dentro do arquivo context.xml
+	 * @return
+	 */
+	@Bean
+	public DataSource dataSource(){
+		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
+		dataSourceLookup.setResourceRef(true);
+		return dataSourceLookup.getDataSource("jdbc/brewerDB");
+	}
+	
+	/**
+	 * utilizado para traduzir o JPQL, Criteria para MySQL
+	 * @return
+	 */
+	@Bean
+	public JpaVendorAdapter jpaVendorAdapter(){
+		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+		adapter.setDatabase(Database.MYSQL);
+		adapter.setShowSql(false); // exibe exatamente a query que esta sendo feito pelo JPA caso esteja true
+		adapter.setGenerateDdl(false);
+		adapter.setDatabasePlatform("org.hibernate.dialect.MySQLDialect");
+		return adapter;
+	}
+	
+	@Bean
+	public EntityManagerFactory entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter){
+		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+		factory.setDataSource(dataSource);
+		factory.setJpaVendorAdapter(jpaVendorAdapter);
+		factory.setPackagesToScan(Cerveja.class.getPackage().getName()); //busca o nome do pacote onde se encontra a entity caso ocorra alguma refatoração ou mudança na arquitetura do software
+		factory.afterPropertiesSet();
+		return factory.getObject();
+	}
+	
+	@Bean
+	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
+		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(entityManagerFactory);
+		return transactionManager;
+	}
+	
+}
