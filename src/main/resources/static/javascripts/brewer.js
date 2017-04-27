@@ -1,5 +1,6 @@
 var Brewer = Brewer || {}; 
 
+ 
 Brewer.MaskMoney = (function() { 
 	 
 	function MaskMoney() { 
@@ -15,6 +16,7 @@ Brewer.MaskMoney = (function() {
  	return MaskMoney; 
  	 
  }()); 
+ 
  
  $(function() { 
  	var maskMoney = new Brewer.MaskMoney(); 
