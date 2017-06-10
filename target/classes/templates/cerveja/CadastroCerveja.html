@@ -2,10 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="'layout/LayoutPadrao'">
+	layout:decorator="'layout/LayoutPadrao'"
+	xmlns:brewer="http://brewer.algaworks.com">
 
 <head>
 	<title>Brewer - Cadastro de cerveja</title>
+	<link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}"/>
 </head>
 
 <body>
@@ -18,35 +20,33 @@
 
 		<div class="container-fluid">
 		
-			<th:block th:include="fragments/MensagemSucesso"></th:block>
 
 			<form method="POST" th:object="${cerveja}" class="form-vertical  js-form-loading">
-
-				<th:block th:include="fragments/MensagensErroValidacao"></th:block>
-
+				<brewer:message/>
+				
 				<div class="row">
-					<div class="form-group col-sm-2">
-						<label for="sku">SKU</label> 
+					<div class="form-group col-sm-2" brewer:classforerror="sku">
+						<label for="sku" class="control-label">SKU</label> 
 						<input id="sku" name="sku"
 							type="text" class="form-control" th:field="*{sku}" >
 					</div>
 
-					<div class="form-group col-sm-10">
-						<label for="nome">Nome</label> 
+					<div class="form-group col-sm-10" brewer:classforerror="nome">
+						<label for="nome" class="control-label">Nome</label> 
 						<input id="nome" name="nome"
 							type="text" class="form-control" th:field="*{nome}">
 					</div>
 				</div>
 
-				<div class="form-group">
-					<label for="descricao">Descrição</label>
+				<div class="form-group" brewer:classforerror="descricao">
+					<label for="descricao" class="control-label">Descrição</label>
 					<textarea rows="3" name="descricao" id="descricao"
 						class="form-control" th:field="*{descricao}"></textarea>
 				</div>
 
 				<div class="row">
-					<div class="col-sm-3 form-group">
-						<label for="estilo">Estilo</label>
+					<div class="col-sm-3 form-group" brewer:classforerror="estilo">
+						<label for="estilo" class="control-label">Estilo</label>
 						<div class="bw-field-action"> 
 							<select id="estilo" class="form-control" th:field="*{estilo}">
 								<option value="">Selecione o estilo</option>
@@ -61,8 +61,8 @@
 						</div>
 					</div>
 
-					<div class="col-sm-3 form-group">
-						<label for="sabor">Sabor</label> 
+					<div class="col-sm-3 form-group" brewer:classforerror="sabor">
+						<label for="sabor" class="control-label">Sabor</label> 
 						<select id="sabor" th:field="*{sabor}"
 							class="form-control">
 							<option value="">Selecione o sabor</option>
@@ -70,16 +70,16 @@
 						</select>
 					</div>
 
-					<div class="col-sm-3 form-group">
-						<label for="teorAlcoolico">Teor alcoólico</label>
+					<div class="col-sm-3 form-group" brewer:classforerror="teorAlcoolico">
+						<label for="teorAlcoolico" class="control-label">Teor alcoólico</label>
 						<div class="input-group">
 							<input id="teorAlcoolico" type="text" class="form-control js-decimal" th:field="*{teorAlcoolico}" />
 							<div class="input-group-addon">%</div>
 						</div>
 					</div>
 
-					<div class="col-lg-3 col-sm-6 form-group">
-						<label for="origem">Origem</label>
+					<div class="col-lg-3 col-sm-6 form-group" brewer:classforerror="origem">
+						<label for="origem" class="control-label">Origem</label>
 						<div>
 							<th:block th:each="origem : ${origens}">
 								<div class="radio radio-inline">
@@ -93,26 +93,39 @@
 				</div>
 
 				<div class="row">
-					<div class="col-sm-3 form-group">
-						<label for="preco">Valor</label>
+					<div class="col-sm-3 form-group" brewer:classforerror="valor">
+						<label for="preco" class="control-label">Valor</label>
 						<div class="input-group">
 							<div class="input-group-addon">R$</div>
 							<input id="valor" type="text" class="form-control js-decimal" th:field="*{valor}"/>
 						</div>
 					</div>
 
-					<div class="col-sm-3 form-group">
-						<label for="comissao">Comissão</label>
+					<div class="col-sm-3 form-group" brewer:classforerror="comissao">
+						<label for="comissao" class="control-label">Comissão</label>
 						<div class="input-group">
 							<input id="comissao" type="text" class="form-control js-decimal" th:field="*{comissao}"/>
 							<div class="input-group-addon">%</div>
 						</div>
 					</div>
 
-					<div class="col-sm-3 form-group">
-						<label for="estoque">Estoque</label> 
+					<div class="col-sm-3 form-group" brewer:classforerror="quantidadeEstoque">
+						<label for="estoque" class="control-label">Estoque</label> 
 						<input id="estoque"
 							type="text" class="form-control js-plain" th:field="*{quantidadeEstoque}" />
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-sm-12">
+						<label class="control-label">Foto</label>
+						
+						<div id="upload-drop" class="bw-upload">
+							<i class="glyphicon  glyphicon-cloud-upload"></i>
+							<span>Arraste a foto aqui ou </span>
+							<a class="bw-upload-form-file">selecione <input id="upload-select" type="file" accept=".jpg,.jpeg,.png"/></a>
+	
+						</div>
 					</div>
 				</div>
 
@@ -127,5 +140,25 @@
 	
 	</section>
 	
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/estilo.cadastro-rapido.js}" ></script>
+		<script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+		<script th:src="@{/javascripts/vendors/upload.min.js}"></script>
+	
+		<script>
+			$(function() {
+				var settings = {
+				type: 'json',
+				filelimit: 1,
+				allow: '*.(jpg|jpeg|png)'
+			};
+	
+			UIkit.uploadSelect($('#upload-select'), settings);
+			UIkit.uploadDrop($('#upload-drop'), settings);
+
+			});
+
+		</script>
+	</th:block>
 </body>
 </html>
