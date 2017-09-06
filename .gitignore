@@ -1,2 +1,22 @@
-*.class
+## ignoring target file
 target/
+
+# Compiled class file
+*.class
+
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
