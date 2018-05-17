@@ -11,7 +11,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class PageWrapper<T> {
 
 	private Page<T> page;
-	
 	private UriComponentsBuilder uriBuilder;
 	
 	public PageWrapper(Page<T> page,HttpServletRequest httpServletRequest){
