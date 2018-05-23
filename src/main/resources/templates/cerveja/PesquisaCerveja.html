@@ -1,4 +1,4 @@
-ku<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -6,7 +6,7 @@ ku<!DOCTYPE html>
 	xmlns:brewer="http://brewer.algaworks.com">
 
 <head>
-<title>Cadastro de cerveja</title>
+<title>Pesquisa de cerveja</title>
 
 <link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}" />
 </head>
@@ -97,22 +97,11 @@ ku<!DOCTYPE html>
 					<tr>
 						<th class="table-cervejas-col-foto"></th>
 						<th class="table-cervejas-col-sku">
-							<a th:href="${pagina.urlOrdenada('sku')}" th:remove="${pagina.vazia} ? tag">
-								<span>SKU</span>
-								<span class="dropup" th:remove="${pagina.descendente('sku')} ? tag"
-									th:if="${pagina.ordenado('sku')}">
-									<span class="caret"></span>
-								</span>
-							</a>
+							<!-- <th:block th:replace="fragments/Ordenacao :: order (${pagina}, 'sku', 'SKU')"></th:block> -->
+							<brewer:order page="${pagina}" field="sku" text="SKU" />
 						</th>
 						<th class="table-cervejas-col-nome">
-							<a th:href="${pagina.urlOrdenada('nome')}" th:remove="${pagina.vazia} ? tag">
-								<span>Nome</span>
-								<span class="dropup" th:remove="${pagina.descendente('nome')} ? tag"
-									th:if="${pagina.ordenado('nome')}">
-									<span class="caret"></span>
-								</span>
-							</a>
+							<brewer:order page="${pagina}" field="nome" text="Nome" />
 						</th>
 						<th class="table-cervejas-col-estilo">Estilo</th>
 						<th class="table-cervejas-col-origem">Origem</th>
