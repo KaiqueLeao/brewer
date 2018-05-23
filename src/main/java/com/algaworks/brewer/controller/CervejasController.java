@@ -3,6 +3,7 @@ package com.algaworks.brewer.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +30,7 @@ import com.algaworks.brewer.service.CadastroCervejaService;
 @RequestMapping("/cervejas")
 public class CervejasController {
 	
-	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(CervejasController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CervejasController.class);
 	
 	@Autowired
 	private Estilos estilos;
