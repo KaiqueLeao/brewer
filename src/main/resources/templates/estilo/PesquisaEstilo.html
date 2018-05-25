@@ -46,7 +46,7 @@
 				<thead>
 					<tr>
 						<th class="table-estilos-col-codigo">Código</th>
-						<th class="table-estilos-col-nome">
+						<th>
 							<brewer:order page="${pagina}" field="nome" text="Estilo" />
 						</th>
 						<th class="table-cervejas-col-acoes"></th>
@@ -72,23 +72,7 @@
 			</table>
 		</div>
 		
-		<div class="col-sm-12 text-center" th:if="${not pagina.vazia}">
-			<nav>
-				<ul class="pagination pagination-sm" th:with="paginaAtual=${pagina.atual}">
-					<li th:class="${pagina.primeira} ? disabled">
-						<a th:remove="${pagina.primeira} ? tag" th:href="${pagina.urlParaPagina(paginaAtual - 1)}"><span>&laquo;</span></a>
-					</li>
-					<th:block th:each="p : ${#numbers.sequence(1,pagina.total)}" th:with="numeroPagina=${p-1}">
-						<li th:class="${paginaAtual == numeroPagina} ? active">
-							<a th:href="${pagina.urlParaPagina(numeroPagina)}">[[${p}]]</a>
-						</li>
-					</th:block>
-					<li th:class="${pagina.ultima} ? disabled">
-						<a th:remove="${pagina.ultima} ? tag" th:href="${pagina.urlParaPagina(paginaAtual + 1)}"><span>&raquo;</span></a>
-					</li>
-				</ul>
-			</nav>
-		</div>
+		<brewer:pagination page="${pagina}"/>
 		
 	</div>
 
