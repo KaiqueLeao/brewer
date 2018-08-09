@@ -28,9 +28,7 @@ public class CidadesController {
 	public @ResponseBody List<Cidade> pesquisarPorCodigoEstado(@RequestParam(name = "estado", defaultValue = "-1") Long codigoEstado){
 		try {
 			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		} catch (InterruptedException e) { 	}
 		return cidades.findByEstadoCodigo(codigoEstado);
 	}
 	
