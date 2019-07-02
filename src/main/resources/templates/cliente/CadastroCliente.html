@@ -3,7 +3,8 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xmlns:data="http://www.thymeleaf.org/extras/data"
-	layout:decorate="~{layout/LayoutPadrao}">
+	layout:decorate="layout/LayoutPadrao"
+	xmlns:brewer="http://brewer.algaworks.com">
 <head>
 	<title>Brewer - Cadastro de cliente</title>
 </head>
@@ -17,7 +18,9 @@
 
 		<div class="container-fluid">
 
-			<form method="POST" th:object="${cliente}" class="form-vertical  js-form-loading">
+			<form method="POST" th:object="${cliente}" class="form-vertical  js-form-loading" th:action="@{/clientes/novo}">
+				<brewer:message/>
+			
 			
 				<div class="row">
 					<div class="form-group col-sm-12">
