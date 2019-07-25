@@ -25,23 +25,21 @@
 
 		<!-- Servlet API -->
 		<servlet.version>3.1.0</servlet.version>
-
+		
 		<!-- Thymeleaf -->
 		<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
 		
 		<!-- Bean Validation / Hibernate Validator -->
 		<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
 		
-		<!-- Thymeleaf layou Dialect -->
+		<!-- Thymeleaf - Layout Dialect -->
 		<thymeleaf-layout-dialect.version>2.0.0</thymeleaf-layout-dialect.version>
 		
-		<!-- log4j -->
+		<!-- Logging -->
 		<log4j.version>2.6</log4j.version>
-		
-		<!-- Ponte para o log4j com slf4j -->
 		<jcl-over-slf4j.version>1.7.21</jcl-over-slf4j.version>
 		
-		<!-- JPA / Hibernate version -->
+		<!-- JPA / Hibernate -->
 		<hibernate.version>5.1.0.Final</hibernate.version>
 		
 		<!-- Spring Data JPA -->
@@ -50,11 +48,11 @@
 		<!-- Jackson - JSON -->
 		<jackson-core.version>2.7.5</jackson-core.version>
 		
-		<!-- thumbnailator - Gerar thumbnail -->
-		<!-- https://github.com/coobird/thumbnailator -->
+		<!-- thumbnailator - Gerar Thumbnail -->
+ 		<!-- https://github.com/coobird/thumbnailator -->
 		<thumbnailator.version>0.4.8</thumbnailator.version>
 		
-		<!-- Thymeleaf Extras Data Attribute-->			
+		<!-- Thymeleaf extras data attribute -->
 		<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
 	</properties>
 
@@ -69,7 +67,6 @@
 				</configuration>
 			</plugin>
 			
-			<!-- FlyWay Evolve DataBase -->
 			<plugin>
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
@@ -78,7 +75,6 @@
 					<driver>com.mysql.jdbc.Driver</driver>
 				</configuration>
 			</plugin>
-			
 		</plugins>
 	</build>
 
@@ -107,7 +103,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
+		
 		<!-- Servlet API -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -131,42 +127,42 @@
 			<scope>compile</scope>
 		</dependency>
 		
-		<!--  Bean Validation / Hibernate Validator -->
+		<!-- Bean Validation / Hibernate Validator -->
+  		<dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <!-- Thymeleaf - Layout Dialect -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>${hibernate-validator.version}</version>
-			<scope>compile</scope>
+    		<groupId>nz.net.ultraq.thymeleaf</groupId>
+    		<artifactId>thymeleaf-layout-dialect</artifactId>
+    		<version>${thymeleaf-layout-dialect.version}</version>
 		</dependency>
 		
-		<!-- Thymeleaf layou Dialect -->
+		<!-- Logging -->
 		<dependency>
-			<groupId>nz.net.ultraq.thymeleaf</groupId>
-			<artifactId>thymeleaf-layout-dialect</artifactId>
-			<version>${thymeleaf-layout-dialect.version}</version>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${log4j.version}</version>
 		</dependency>
-		
-		<!-- Logging --> 
- 		<dependency> 
- 			<groupId>org.apache.logging.log4j</groupId> 
- 			<artifactId>log4j-slf4j-impl</artifactId> 
- 			<version>${log4j.version}</version> 
- 		</dependency> 
- 		<dependency> 
- 			<groupId>org.apache.logging.log4j</groupId> 
- 			<artifactId>log4j-api</artifactId> 
- 			<version>${log4j.version}</version> 
- 		</dependency> 
- 		<dependency> 
- 			<groupId>org.apache.logging.log4j</groupId> 
- 			<artifactId>log4j-core</artifactId> 
- 			<version>${log4j.version}</version> 
- 		</dependency> 
- 		<dependency> 
- 			<groupId>org.slf4j</groupId> 
- 			<artifactId>jcl-over-slf4j</artifactId> 
- 			<version>${jcl-over-slf4j.version}</version> 
- 		</dependency> 
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${jcl-over-slf4j.version}</version>
+		</dependency>
 		
 		<!-- JPA / Hibernate -->
 		<dependency>
@@ -175,16 +171,16 @@
 			<version>${hibernate.version}</version>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<!-- Hibernate - Java 8 support -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-java8</artifactId>
-			<version>${hibernate.version}</version>
-			<scope>compile</scope>
+        <dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-java8</artifactId>
+    		<version>${hibernate.version}</version>
+    		<scope>compile</scope>
 		</dependency>
 		
-		<!-- MySQL Connector Java -->
+		<!-- MySQL Driver -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -194,35 +190,36 @@
 		
 		<!-- Spring Data JPA -->
 		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-			<version>${spring-data-jpa.version}</version>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-jpa</artifactId>
+		    <version>${spring-data-jpa.version}</version>
+		    <scope>compile</scope>
 		</dependency>
 		
 		<!-- Jackson - JSON -->
 		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>${jackson-core.version}</version>
-			<scope>compile</scope>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>${jackson-core.version}</version>
+		    <scope>compile</scope>
 		</dependency>
 		
-		<!-- thumbnail - Gerar thumbnail -->
+		<!-- thumbnailator - Gerar Thumbnail -->
 		<dependency>
 			<groupId>net.coobird</groupId>
 			<artifactId>thumbnailator</artifactId>
 			<version>${thumbnailator.version}</version>
 			<scope>compile</scope>
 		</dependency>
-
-		<!-- Thymeleaf Extras Data Attribute -->		
+		
+		<!-- Thymeleaf extras data attribute -->
 		<dependency>
-			<groupId>com.github.mxab.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-data-attribute</artifactId>
-			<version>${thymeleaf-extras-data-attribute.version}</version>
-			<scope>compile</scope>
+    		<groupId>com.github.mxab.thymeleaf.extras</groupId>
+    		<artifactId>thymeleaf-extras-data-attribute</artifactId>
+    		<version>${thymeleaf-extras-data-attribute.version}</version>
+    		<scope>compile</scope>
 		</dependency>
 		
 	</dependencies>
-
-</project> 
+	
+</project>

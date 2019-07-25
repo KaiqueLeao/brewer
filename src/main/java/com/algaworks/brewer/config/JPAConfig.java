@@ -23,45 +23,38 @@ import com.algaworks.brewer.repository.Cervejas;
 @ComponentScan(basePackageClasses = Cervejas.class)
 @EnableJpaRepositories(basePackageClasses = Cervejas.class, enableDefaultTransactions = false)
 @EnableTransactionManagement
+@ComponentScan(basePackageClasses = Cervejas.class)
 public class JPAConfig {
 
-	/**
-	 * Identifca o data-source dentro do arquivo context.xml
-	 * @return
-	 */
 	@Bean
-	public DataSource dataSource(){
+	public DataSource dataSource() {
 		JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
 		dataSourceLookup.setResourceRef(true);
 		return dataSourceLookup.getDataSource("jdbc/brewerDB");
 	}
 	
-	/**
-	 * utilizado para traduzir o JPQL, Criteria para MySQL
-	 * @return
-	 */
 	@Bean
-	public JpaVendorAdapter jpaVendorAdapter(){
+	public JpaVendorAdapter jpaVendorAdapter() {
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
 		adapter.setDatabase(Database.MYSQL);
-		adapter.setShowSql(false); // exibe exatamente a query que esta sendo feito pelo JPA caso esteja true
+		adapter.setShowSql(false);
 		adapter.setGenerateDdl(false);
 		adapter.setDatabasePlatform("org.hibernate.dialect.MySQLDialect");
 		return adapter;
 	}
 	
 	@Bean
-	public EntityManagerFactory entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter){
+	public EntityManagerFactory entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setDataSource(dataSource);
 		factory.setJpaVendorAdapter(jpaVendorAdapter);
-		factory.setPackagesToScan(Cerveja.class.getPackage().getName()); //busca o nome do pacote onde se encontra a entity caso ocorra alguma refatoração ou mudança na arquitetura do software
+		factory.setPackagesToScan(Cerveja.class.getPackage().getName());
 		factory.afterPropertiesSet();
 		return factory.getObject();
 	}
 	
 	@Bean
-	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
+	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(entityManagerFactory);
 		return transactionManager;

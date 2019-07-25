@@ -11,52 +11,40 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente implements Serializable{
+public class Cliente implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long codigo;
-	
-	@NotBlank(message = "Nome obrigatorio")
+	private Long codigo;
+
 	private String nome;
-	
-	@NotNull(message = "Tipo pessoa obrigatorio")
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_pessoa")
-	private int tipoPessoa;
-	
+	private TipoPessoa tipoPessoa;
+
 	@Column(name = "cpf_cnpj")
-	private int cpfOuCnpj;
-	
-	private int telefone;
-	
-	@Email(message = "e-mail invalido")
+	private String cpfOuCnpj;
+
+	private String telefone;
+
 	private String email;
-	
+
 	@Embedded
 	private Endereco endereco;
-	
-	private int numero;
-	
-	private String complemento;
-	
-	private int cep;
-	
-	private int estado;
-	
-	private int cidade;
+
+	public Long getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
 
 	public String getNome() {
 		return nome;
@@ -66,19 +54,27 @@ public class Cliente implements Serializable{
 		this.nome = nome;
 	}
 
-	public int getTipoPessoa() {
+	public TipoPessoa getTipoPessoa() {
 		return tipoPessoa;
 	}
 
-	public void setTipoPessoa(int tipoPessoa) {
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
 
-	public int getTelefone() {
+	public String getCpfOuCnpj() {
+		return cpfOuCnpj;
+	}
+
+	public void setCpfOuCnpj(String cpfOuCnpj) {
+		this.cpfOuCnpj = cpfOuCnpj;
+	}
+
+	public String getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(int telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 
@@ -90,44 +86,37 @@ public class Cliente implements Serializable{
 		this.email = email;
 	}
 
-	public int getNumero() {
-		return numero;
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
-	public String getComplemento() {
-		return complemento;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
 	}
 
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
 	}
 
-	public int getCep() {
-		return cep;
-	}
-
-	public void setCep(int cep) {
-		this.cep = cep;
-	}
-
-	public int getEstado() {
-		return estado;
-	}
-
-	public void setEstado(int estado) {
-		this.estado = estado;
-	}
-
-	public int getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(int cidade) {
-		this.cidade = cidade;
-	}
-	
 }
